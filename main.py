@@ -18,6 +18,7 @@ def textSignUp():
     # Set environment variables for your credentials
     # Read more at http://twil.io/secure
     if request.method == 'POST':
+        print(request)
         phone = request.form['phone']
         print(phone)
     account_sid = "AC14a3f3132166d5d7afeb46621518c849"
