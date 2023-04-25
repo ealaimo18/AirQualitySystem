@@ -161,27 +161,18 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
+                                    <h6 class="m-0 font-weight-bold text-primary">Register Your Device</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
+                                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/registerDevice" method="POST">
+                                            <input type="text" class="form-control bg-light border-0 small" placeholder="+1 555-555-5555" name= "phone" label="phone" aria-describedby="basic-addon2"> <br><br>
+
+                                            <input type="text" class="form-control bg-light border-0 small" placeholder="+1 555-555-5555" name= "phone" label="phone" aria-describedby="basic-addon2"> 
+                                                    <button class="btn btn-primary" type="submit" label="phone">
+                                                        <i class="fa-solid fa-check"></i>
+                                                    </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -202,7 +193,7 @@
                                             <input type="text" class="form-control bg-light border-0 small" placeholder="+1 555-555-5555" name= "phone" label="phone" aria-describedby="basic-addon2">
                                                 <div class="input-group-append">
                                                     <button class="btn btn-primary" type="submit" label="phone">
-                                                        <i class="fas fa-search fa-sm"></i>
+                                                        <i class="fa-solid fa-check"></i>
                                                     </button>
                                                  </div>
                                         </div>
