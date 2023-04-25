@@ -9,12 +9,6 @@ app.secret_key = "things"
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    connection = sqlite3.connect("myDatabase.db")
-    connection.row_factory = sqlite3.Row
-    cursor = connection.cursor()
-    cursor.execute("SELECT id FROM device;")
-    id = cursor.fetchone()
-    print(id)
     temp = 0
     humid = 0
     pm_inside = 0
@@ -23,7 +17,17 @@ def home():
 
 @app.route('/registerDevice', methods=['GET', 'POST'])
 def registerDevice():
-    
+    if request.method == 'POST':
+        id = request.form["device_id"]
+        name = request.form["name"]
+        lat = request.form["lat"]
+        long = request.form["long"]
+        connection = sqlite3.connect("myDatabase.db")
+        connection.row_factory = sqlite3.Row
+        cursor = connection.cursor()
+        cursor.execute()
+        cursor.commit()
+
     return redirect('/')
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -31,9 +35,7 @@ def textSignUp():
     # Set environment variables for your credentials
     # Read more at http://twil.io/secure
     if request.method == 'POST':
-        print(request)
         phone = request.form['phone']
-        print(phone)
     account_sid = "AC14a3f3132166d5d7afeb46621518c849"
     auth_token = "2dfd6c6e1868ab9567e8e239757a73d9"
     client = Client(account_sid, auth_token)
@@ -43,8 +45,7 @@ def textSignUp():
       to= phone
     #   to="+14846273900"
     )
-    print("text message sid", message.sid)
-    print(phone)
+    #print("text message sid", message.sid)
     return redirect('/')
 
 

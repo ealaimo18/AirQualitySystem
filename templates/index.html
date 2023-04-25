@@ -166,9 +166,18 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/registerDevice" method="POST">
-                                            <input type="text" class="form-control bg-light border-0 small" placeholder="+1 555-555-5555" name= "phone" label="phone" aria-describedby="basic-addon2"> <br><br>
 
-                                            <input type="text" class="form-control bg-light border-0 small" placeholder="+1 555-555-5555" name= "phone" label="phone" aria-describedby="basic-addon2"> 
+                                            <label for="device_id" class="form-label" >Device ID</label> 
+                                            <input type="text" class="form-control bg-light border-0 small" placeholder="1" name= "device_id" label="device_id" aria-describedby="basic-addon2"> <br><br>
+
+                                            <label for="name" class="form-label" >Name Your Device</label> 
+                                            <input type="text" class="form-control bg-light border-0 small" placeholder="Betty's Home Device" name= "name" label="name" aria-describedby="basic-addon2"> <br><br>
+
+                                            <label for="lat" class="form-label" >Location Latitude</label> 
+                                            <input type="text" class="form-control bg-light border-0 small" placeholder="28.500075" name= "lat" label="lat" aria-describedby="basic-addon2"><br><br>
+
+                                            <label for="long" class="form-label" >Location Longitude</label> 
+                                            <input type="text" class="form-control bg-light border-0 small" placeholder="-81.463619" name= "long" label="long" aria-describedby="basic-addon2">
                                                     <button class="btn btn-primary" type="submit" label="phone">
                                                         <i class="fa-solid fa-check"></i>
                                                     </button>
