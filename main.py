@@ -48,5 +48,8 @@ def textSignUp():
     #print("text message sid", message.sid)
     return redirect('/')
 
+@app.route('/map', methods=['GET', 'POST'])
+def map():
+    return render_template("home.html")
 
 app.run(host='0.0.0.0', port=8080, debug=True)
