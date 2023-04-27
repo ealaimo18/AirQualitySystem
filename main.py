@@ -25,9 +25,8 @@ def registerDevice():
         connection = sqlite3.connect("myDatabase.db")
         connection.row_factory = sqlite3.Row
         cursor = connection.cursor()
-        cursor.execute()
-        cursor.commit()
-
+        cursor.execute("INSERT INTO device (id, name, lat, long) VALUES (?, ?, ?, ?)", (id, name, lat, long))
+        connection.commit()
     return redirect('/')
 
 @app.route('/signup', methods=['GET', 'POST'])

@@ -20,7 +20,7 @@ CREATE TABLE data (
 );
 
 INSERT INTO device VALUES
-(1, "betty", 28.500075, -81.463619);
+(99, "betty", 28.500075, -81.463619);
 
 INSERT INTO data VALUES
 -- (1, 2019-10-14 14:39:50, 25, 99, 2, 7);
