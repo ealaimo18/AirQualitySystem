@@ -332,19 +332,59 @@
                             <!-- Illustrations -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Device Map</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="text-center">
-                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                            src="img/undraw_posting_photo.svg" alt="...">
+                                    <style>
+                                        #map {
+                                            width:650px;
+                                            height:500px;
+                                        }
+                                        /* Optional: Makes the sample page fill the window. */
+                                        html, body {
+                                            height: 100%;
+                                            margin: 0;
+                                            padding: 0;
+                                        }
+                                    </style>
+                                    <script>
+                                    function initMap() {
+                                        var mapOptions = {
+                                            center:new google.maps.LatLng(38.89920436921307, -77.04785218816076),
+                                            zoom: 17,
+                                            draggable: true,
+                                            mapTypeControl: false,
+                                            zoomControl: true,
+                                            mapTypeId:google.maps.MapTypeId.ROADMAP
+                                        };
+                                    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+                                    }
+                                    </script>
+                                
+                                    <!-- Custom fonts for this template-->
+                                    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+                                    <link
+                                        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+                                        rel="stylesheet">
+                                
+                                    <!-- Custom styles for this template-->
+                                    <link href="/static/css/sb-admin-2.min.css" rel="stylesheet">
+                                    <script src="https://kit.fontawesome.com/e0e1f8f01e.js" crossorigin="anonymous"></script>
+                                </head>
+                                
+                                <body>
+                                    <div id="wrapper">
+                                        <div id="content-wrapper" class="d-flex flex-column">
+                                        <div id="map"></div>
+                                   
+                                        <script async defer
+                                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgqrEOmMFewN3YNQDoFyKkdCEFmiGhNks&callback=initMap">
+                                        </script> 
+                                        </div>
                                     </div>
-                                    <p>Add some quality, svg illustrations to your project courtesy of <a
-                                            target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
-                                        constantly updated collection of beautiful svg images that you can use
-                                        completely free and without attribution!</p>
-                                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                                        unDraw &rarr;</a>
+                                
+                                   
+                                </body>
                                 </div>
                             </div>
 
@@ -375,7 +415,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Dania Abdallah and Manue Alaimo</span>
                     </div>
                 </div>
             </footer>
