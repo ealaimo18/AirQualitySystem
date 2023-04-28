@@ -26,26 +26,29 @@
 			mapTypeId:google.maps.MapTypeId.ROADMAP
 		};
 		var map = new google.maps.Map(document.getElementById('map'), mapOptions);                         
-   		var marker; 
-		marker = new google.maps.Marker({                                   
-			position: new google.maps.LatLng(38.89889031725395, -77.04961667870883),   
-			map: map                                                          
-		}); 
-		var marker2; 
-		marker2 = new google.maps.Marker({                                   
-			position: new google.maps.LatLng(38.899233225055276, -77.04780527396329),   
-			map: map                                                          
-		}); 
 		var points = JSON.parse('{{ points|safe }}');  
 		for (var i = 0; i < points.length; i++) {                               
 
 			marker = new google.maps.Marker({                                   
 			position: new google.maps.LatLng(points[i].lat, points[i].long),   
 			map: map                                                          
-		});                                                                 
+			}
+			); 
+			var cont = JSON.stringify(points[i]);
+			const infowindow = new google.maps.InfoWindow({
+    		content: cont,
+ 			});
 
-}   
-		}
+			marker.addListener('mouseover', function() {
+    		infowindow.open(map, this);
+			});
+
+			// assuming you also want to hide the infowindow when user mouses-out
+			marker.addListener('mouseout', function() {
+				infowindow.close();
+			});
+		}   
+	}
     </script>
 
     <!-- Custom fonts for this template-->
@@ -73,4 +76,6 @@
    
 </body>
 </html>
+
+
 
