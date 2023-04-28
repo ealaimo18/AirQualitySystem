@@ -44,7 +44,7 @@ def home():
     pm_2_5 = 0
     pm_10 = 0
     aqi_2_5 = 0
-    aqi_10 = 100
+    aqi_10 = 0
     if request.method == 'POST':
         content = request.get_json()
         temp = content['temperature']

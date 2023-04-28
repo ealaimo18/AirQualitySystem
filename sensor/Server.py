@@ -15,7 +15,6 @@ sensor = SDS011("/dev/ttyUSB0")
 sense = SenseHat()
 
 def main():
-    print("please work with a cherry on top")
     red = (255, 0, 0)
     orange = (255, 165, 0)
     yellow = (255, 255, 0)
@@ -37,13 +36,14 @@ def main():
         sense.show_message(msg, scroll_speed=0.05)
         
         url = 'http://161.253.92.155:5000/'
-        myobj = {"temperature": str(t),
-                                         "pressure": str(p),
-                                         "humidity": str(h),
-                                         "pm_2_5": str(pmt_2_5),
-                                         "aqi_2_5": str(aqi_2_5),
-                                         "pm_10": str(pmt_10),
-                                         "aqi_10": str(aqi_10)}
+        myobj = {"temperature": str(t), 
+                 "pressure": str(p),
+                 "humidity": str(h),
+                 "pm_2_5": str(pmt_2_5),
+                 "aqi_2_5": str(aqi_2_5),
+                 "pm_10": str(pmt_10),
+                 "aqi_10": str(aqi_10), 
+                 "device_id": 18}  #device id should be hard coded because it will never change with node
         x = requests.post(url, json = myobj)
         
         dweepy.dweet_for('AQVS_Sensor', {"temperature": str(t),
