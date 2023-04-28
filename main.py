@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, jsonify
 import os
+import json
 import sqlite3, random
 from datetime import datetime
 from twilio.rest import Client
@@ -162,11 +163,10 @@ def map():
     connection.close()
 
     list = []
-
     # create list for a dictionary of each data point
     for point in points:
-        data = {"temperature": point['temp'],
-                 "humidity": point['humid'],
+        data = {"temp": point['temp'],
+                 "humid": point['humid'],
                  "pm_2_5":  point['pm_2_5'],
                  "aqi_2_5":  point['aqi_2_5'],
                  "pm_10":  point['pm_10'],
@@ -176,7 +176,7 @@ def map():
         list.append(data)
    
     #print(list)
-    return render_template("home.html",  points=jsonify(list))
+    return render_template("home.html",  points=json.dumps(list))
 
 
 
