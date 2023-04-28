@@ -16,7 +16,7 @@ def main():
                  "aqi_2_5": str(aqi_2_5),
                  "pm_10": str(pmt_10),
                  "aqi_10": str(aqi_10), 
-                 "device_id": 18}  #device id should be hard coded because it will never change with node
+                 "device_id": 21}  #device id should be hard coded because it will never change with node
     x = requests.post(url, json = myobj)
     return
 

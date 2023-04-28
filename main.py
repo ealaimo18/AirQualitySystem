@@ -128,6 +128,7 @@ def registerDevice():
         cursor = connection.cursor()
         cursor.execute("INSERT INTO device (id, name, lat, long) VALUES (?, ?, ?, ?)", (id, name, lat, long))
         connection.commit()
+        connection.close()
     return redirect('/')
 
 @app.route('/signup', methods=['GET', 'POST'])
