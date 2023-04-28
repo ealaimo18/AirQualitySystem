@@ -81,6 +81,34 @@ def textSignUp():
     #print("text message sid", message.sid)
     return redirect('/')
 
+@app.route('/map', methods=['GET', 'POST'])
+def map():
+
+    #fetch data points
+    connection = sqlite3.connect("myDatabase.db")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM DATA")
+    points = cursor.fetchall()
+    connection.commit()
+
+    list = []
+
+    # create list for a dictionary of each data point
+    for point in points:
+        data = {"temperature": point['temp'],
+                 "humidity": point['humid'],
+                 "pm_2_5":  point['pm_2_5'],
+                 "aqi_2_5":  point['aqi_2_5'],
+                 "pm_10":  point['pm_10'],
+                 "aqi_10":  point['aqi_10'],
+                 "lat":  point['lat'],
+                 "long":  point['long']}    
+        list.append(data)
+   
+    #print(list)
+    return render_template("home.html",  points=jsonify(list))
+
 
 
 
