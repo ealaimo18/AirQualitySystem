@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>AirQ</title>
 
     <!-- Custom fonts for this template-->
     <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -45,7 +45,7 @@
                     <!-- Topbar Navbar -->
                     <!-- <ul class="navbar-nav ml-auto"> -->
                         <span class="align-middle">
-                            <h1>Air Quality</h1>
+                            <h1>AirQ - Accessible Air Monitoring</h1>
                         </span>
                     <!-- </ul> -->
 
@@ -56,11 +56,11 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                    </div>
+                    </div> -->
 
                     <!-- Content Row -->
                     <div class="row">
@@ -74,7 +74,7 @@
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Temperature (insert last update time stamp here?)</div>
                                             <!-- <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div> -->
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ temp }}</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ temp }} Celcius</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fa-solid fa-temperature-three-quarters fa-2x text-gray-300"></i>
@@ -92,8 +92,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Humidity(insert last update time stamp here?)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ humid }}</div>
+                                                Humidity</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ humid }} %</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fa-solid fa-droplet fa-2x text-gray-300"></i>
@@ -109,18 +109,18 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Inside Particle Matter(insert last update time stamp here?)
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1"> Air Quality Index 2.5
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ pm_inside }}</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ pm_2_5 }}</div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="progress progress-sm mr-2">
+                                                    <!-- <div class="progress progress-sm mr-2">
                                                         <div class="progress-bar bg-info" role="progressbar"
                                                             style="width: 50%" aria-valuenow="50" aria-valuemin="0"
                                                             aria-valuemax="100"></div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -139,8 +139,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Outside Particle Matter(insert last update time stamp here?)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ pm_outside }}</div>
+                                                Air Quality Index 10</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ pm_10 }}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fa-solid fa-smog fa-2x text-gray-300"></i>
@@ -221,45 +221,141 @@
                             <!-- Project Card Example -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Local Stats</h6>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="small font-weight-bold">Server Migration <span
-                                            class="float-right">20%</span></h4>
+
+                                    <h4 class="small font-weight-bold"> Partical Matter 2.5 <span
+                                            class="float-right">{{pm_2_5}}%</span></h4>
+                        
+                                    {% if pm_2_5 >= 0 and pm_2_5 <= 50: %}
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
+                                        <div class="progress-bar bg-success" role="progressbar" style="width:15%"
                                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Sales Tracking <span
+
+                                    {% elif pm_2_5 >= 51 and pm_2_5 <= 100: %}
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width:15%"
+                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                    {% elif pm_2_5 >= 101 and pm_2_5 <= 150: %}
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width:15%"
+                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    {% elif pm_2_5 >= 151 and pm_2_5 <= 200: %}
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width:15%"
+                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                    {% elif pm_2_5 >= 201 and pm_2_5 <= 300: %}
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-secondary" role="progressbar" style="width:15%"
+                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                    {% elif pm_2_5 >= 300: %}
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-dark" role="progressbar" style="width:15%"
+                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    {% endif %}
+
+                                    <h4 class="small font-weight-bold"> Particle Matter 10 <span
                                             class="float-right">40%</span></h4>
                                     <div class="progress mb-4">
                                         <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
                                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Customer Database <span
+
+                                    <h4 class="small font-weight-bold"> Air Quality Index 2.5 <span
+                                        class="float-right">40%</span></h4>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
+                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                    <h4 class="small font-weight-bold"> Air Quality Index 10 <span
+                                        class="float-right">40%</span></h4>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
+                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <h4 class="small font-weight-bold">Temperature <span
                                             class="float-right">60%</span></h4>
                                     <div class="progress mb-4">
                                         <div class="progress-bar" role="progressbar" style="width: 60%"
                                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Payout Details <span
+                                    <h4 class="small font-weight-bold">Humidity <span
                                             class="float-right">80%</span></h4>
                                     <div class="progress mb-4">
                                         <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
                                             aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Account Setup <span
+                                   <!-- <h4 class="small font-weight-bold">Account Setup <span
                                             class="float-right">Complete!</span></h4>
                                     <div class="progress">
                                         <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
                                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                    </div>  -->
                                 </div>
                             </div>
 
                             <!-- Color System -->
                             <div class="row">
                                 <div class="col-lg-6 mb-4">
+                                    <div class="card bg-success text-white shadow">
+                                        <div class="card-body">
+                                            Green
+                                            <div class="text-white-50 small">Air quality is satisfactory, and air pollution poses little or no risk.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-warning text-white shadow">
+                                        <div class="card-body">
+                                            Yellow
+                                            <div class="text-white-50 small">Air quality is acceptable. However, there may be a risk for some people, particularly those who are unusually sensitive to air pollution.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-info text-white shadow">
+                                        <div class="card-body">
+                                            Blue
+                                            <div class="text-white-50 small">Members of sensitive groups may experience health effects. The general public is less likely to be affected.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-danger text-white shadow">
+                                        <div class="card-body">
+                                            Red
+                                            <div class="text-white-50 small">Some members of the general public may experience health effects; members of sensitive groups may experience more serious health effects.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-secondary text-white shadow">
+                                        <div class="card-body">
+                                            Silver
+                                            <div class="text-white-50 small">Health alert: The risk of health effects is increased for everyone.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-dark text-white shadow">
+                                        <div class="card-body">
+                                            Black
+                                            <div class="text-white-50 small">Health warning of emergency conditions: everyone is more likely to be affected.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-lg-6 mb-4">
                                     <div class="card bg-primary text-white shadow">
                                         <div class="card-body">
                                             Primary
@@ -267,46 +363,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-success text-white shadow">
-                                        <div class="card-body">
-                                            Success
-                                            <div class="text-white-50 small">#1cc88a</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-info text-white shadow">
-                                        <div class="card-body">
-                                            Info
-                                            <div class="text-white-50 small">#36b9cc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-warning text-white shadow">
-                                        <div class="card-body">
-                                            Warning
-                                            <div class="text-white-50 small">#f6c23e</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-danger text-white shadow">
-                                        <div class="card-body">
-                                            Danger
-                                            <div class="text-white-50 small">#e74a3b</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-secondary text-white shadow">
-                                        <div class="card-body">
-                                            Secondary
-                                            <div class="text-white-50 small">#858796</div>
-                                        </div>
-                                    </div>
-                                </div>
+    
                                 <div class="col-lg-6 mb-4">
                                     <div class="card bg-light text-black shadow">
                                         <div class="card-body">
@@ -314,22 +371,14 @@
                                             <div class="text-black-50 small">#f8f9fc</div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-dark text-white shadow">
-                                        <div class="card-body">
-                                            Dark
-                                            <div class="text-white-50 small">#5a5c69</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> -->
                             </div>
 
                         </div>
 
                         <div class="col-lg-6 mb-4">
 
-                            <!-- Illustrations -->
+
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Device Map</h6>
@@ -389,7 +438,7 @@
                             </div>
 
                             <!-- Approach -->
-                            <div class="card shadow mb-4">
+                            <!-- <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
                                 </div>
@@ -400,7 +449,7 @@
                                     <p class="mb-0">Before working with this theme, you should become familiar with the
                                         Bootstrap framework, especially the utility classes.</p>
                                 </div>
-                            </div>
+                            </div>  -->
 
                         </div>
                     </div>
