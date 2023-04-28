@@ -72,7 +72,7 @@ def home():
         list.append(data)
         #close connection
         connection.close()
-        
+
     if request.method == 'POST':
         content = request.get_json()
         temp = content['temperature']
@@ -120,6 +120,7 @@ def home():
             if aqi_10 > 300:
                 message = "HEALTH WARNING of EMERGENCY CONDITIONS: everyone is more likely to be affected."
                 sendText(phone, message)
+        return render_template("index.html", temp=temp, humid=humid, pm_2_5 = pm_2_5, pm_10= pm_10,aqi_2_5 = aqi_2_5, aqi_10 = aqi_10, points=json.dumps(list) )
 
 
 
