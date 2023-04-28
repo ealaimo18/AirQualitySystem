@@ -46,6 +46,33 @@ def home():
     pm_10 = 0
     aqi_2_5 = 0
     aqi_10 = 0
+     #fetch data points
+    connection = sqlite3.connect("myDatabase.db")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+    connection = sqlite3.connect("myDatabase.db")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM DATA")
+    points = cursor.fetchall()
+    connection.commit()
+    connection.close()
+
+    list = []
+    # create list for a dictionary of each data point
+    for point in points:
+        data = {"temp": point['temp'],
+                "humid": point['humid'],
+                "pm_2_5":  point['pm_2_5'],
+                "aqi_2_5":  point['aqi_2_5'],
+                "pm_10":  point['pm_10'],
+                "aqi_10":  point['aqi_10'],
+                "lat":  point['lat'],
+                "long":  point['long']}    
+        list.append(data)
+        #close connection
+        connection.close()
+        
     if request.method == 'POST':
         content = request.get_json()
         temp = content['temperature']
@@ -60,6 +87,9 @@ def home():
         connection = sqlite3.connect("myDatabase.db")
         connection.row_factory = sqlite3.Row
         cursor = connection.cursor()
+
+
+        #inserting data collected to db 
         cursor.execute("SELECT * FROM device WHERE id = ?", (device_id,));
         device = cursor.fetchone()
         lat = device['lat'] 
@@ -67,6 +97,7 @@ def home():
         cursor.execute("INSERT into data (device_id, temp, humid, pm_2_5, pm_10, aqi_2_5, aqi_10, lat, long) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", (device_id, temp, humid, pm_2_5, pm_10, aqi_2_5, aqi_10, lat, long))
         connection.commit()
         connection.close()
+
 
         #send texts with thresholds
         if phone != 0:
@@ -92,9 +123,7 @@ def home():
 
 
 
-
-
-    return render_template("index.html", temp=temp, humid=humid, pm_2_5 = pm_2_5, pm_10= pm_10,aqi_2_5 = aqi_2_5, aqi_10 = aqi_10 )
+    return render_template("index.html", temp=temp, humid=humid, pm_2_5 = pm_2_5, pm_10= pm_10,aqi_2_5 = aqi_2_5, aqi_10 = aqi_10, points=json.dumps(list) )
 
         # print(content['manue'])
         # f = open("demofile3.txt", "a")
