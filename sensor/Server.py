@@ -1,14 +1,12 @@
-#Setup Dweet
-#Dweet Loop
-
 from sense_hat import SenseHat
 import time
 from datetime import datetime
-import paho.mqtt.publish as publish
-import psutil
 from sds011 import *
 import aqi
-
+import urllib
+import random
+import string
+import dweepy
 
 
 #Setup sensehat and SDS011
@@ -16,9 +14,36 @@ sensor = SDS011("/dev/ttyUSB0")
 sense = SenseHat()
 
 def main():
-    getSenseHat()
-    getSDS011()
-
+    print("please work with a cherry on top")
+    red = (255, 0, 0)
+    orange = (255, 165, 0)
+    yellow = (255, 255, 0)
+    green = (0, 255, 0)
+    blue = (0, 0, 255)
+    purple = (160, 32, 240)
+    
+    for i in range (5):
+        msg = "Collecting Data..."
+        sense.show_message(msg,text_colour= red,  scroll_speed=0.1)
+        
+        t, p, h = getSenseHat()
+        pmt_2_5, aqi_2_5, pmt_10, aqi_10 = getSDS011()
+        
+        msg = "T = %s H = %s" % (t, h)
+        sense.show_message(msg, scroll_speed=0.05)
+        
+        msg = "pm2.5 = %s pm10 =%s" % (aqi_2_5, aqi_10)
+        sense.show_message(msg, scroll_speed=0.05)
+        
+        
+        dweepy.dweet_for('AQVS_Sensor', {"temperature": str(t),
+                                         "pressure": str(p),
+                                         "humidity": str(h),
+                                         "pm_2_5": str(pmt_2_5),
+                                         "aqi_2_5": str(aqi_2_5),
+                                         "pm_10": str(pmt_10),
+                                         "aqi_10": str(aqi_10)})
+        time.sleep(10)
 
 #get sensehat environment info
 def getSenseHat():
@@ -29,18 +54,16 @@ def getSenseHat():
     t = round(t,1)
     p = round(p,1)
     h = round(h,1)
-        
-    msg = "Temp = %s C, Pressure = %s mbar, Humidity =%s" % (t, p, h)
-        
-    sense.show_message(msg, scroll_speed=0.05)
-    return
+    
+    
+    return t, p, h
 
 
 def get_data(n=3):
         sensor.sleep(sleep=False)
         pmt_2_5 = 0
         pmt_10 = 0
-        time.sleep(10)
+        time.sleep(5)
         for i in range (n):
             x = sensor.query()
             pmt_2_5 = pmt_2_5 + x[0]
@@ -85,15 +108,25 @@ def get_data(n=3):
 def getSDS011():
     pmt_2_5, pmt_10 = get_data()
     aqi_2_5, aqi_10 = conv_aqi(pmt_2_5, pmt_10)
+    
+    
+    red = (255, 0, 0)
+    orange = (255, 165, 0)
+    yellow = (255, 255, 0)
+    green = (0, 255, 0)
+    blue = (0, 0, 255)
+    purple = (160, 32, 240)
+    
+    
+    
+    
     tPayload = "field1=" + str(pmt_2_5)+ "&field2=" + str(aqi_2_5)+ "&field3=" + str(pmt_10)+ "&field4=" + str(aqi_10)
     try:
         save_log(pmt_2_5, aqi_2_5, pmt_10, aqi_10)
-        time.sleep(15)
     except Exception as e:
         print(e)
-        time.sleep(12)
         
-    return
+    return pmt_2_5, aqi_2_5, pmt_10, aqi_10
 
 if __name__ == "__main__":
     main()
