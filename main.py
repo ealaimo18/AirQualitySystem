@@ -11,41 +11,22 @@ app.secret_key = "things"
 
 #global variables
 phone = 0
+temp = 0
+humid= 0
+pm_2_5  = 0 
+pm_10 = 0
+aqi_2_5 = 0
+aqi_10 = 0
 
-# def test():
-#     print("enters test")
-#     #send texts with thresholds
-#     aqi_10 = 110
-#     aqi_2_5 = 0
-#     if phone != 0:
-#         # if aqi_2_5 or aqi_10 > 51 and aqi_2_5 or aqi_10 < 100:
-#         #         message = "Air quality is acceptable. However, there may be a risk for some people, particularly those who are unusually sensitive to air pollution."
-#         #         sendText(phone, message)
-
-#         # if aqi_2_5 or aqi_10 > 101 and aqi_2_5 or aqi_10 < 150:
-#         #         message = "Members of sensitive groups may experience health effects. The general public is less likely to be affected."
-#         #         sendText(phone, message)
-
-#         # if aqi_2_5 or aqi_10 > 151 and aqi_2_5 or aqi_10 < 200:
-#         #         message = "ALERT! Some members of the general public may experience health effects; members of sensitive groups may experience more serious health effects."
-#         #         sendText(phone, message)
-            
-#         # if aqi_2_5 or aqi_10 > 201 and aqi_2_5 or aqi_10 < 300:
-#         #         message = "HEALTH ALERT: The risk of health effects is increased for everyone."
-#         #         sendText(phone, message)
-            
-#         # if aqi_2_5 or aqi_10 > 300:
-#         #         message = "HEALTH WARNING of EMERGENCY CONDITIONS: everyone is more likely to be affected."
-#         #         sendText(phone, message)
-#     return
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    temp = 0
-    humid = 0
-    pm_2_5 = 0
-    pm_10 = 0
-    aqi_2_5 = 0
-    aqi_10 = 0
+    global temp
+    global humid
+    global pm_2_5
+    global pm_10
+    global aqi_2_5
+    global aqi_10
+
      #fetch data points
     connection = sqlite3.connect("myDatabase.db")
     connection.row_factory = sqlite3.Row
@@ -95,6 +76,7 @@ def home():
         lat = device['lat'] 
         long = device['long']
         cursor.execute("INSERT into data (device_id, temp, humid, pm_2_5, pm_10, aqi_2_5, aqi_10, lat, long) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", (device_id, temp, humid, pm_2_5, pm_10, aqi_2_5, aqi_10, lat, long))
+        cursor.execute("")
         connection.commit()
         connection.close()
 
@@ -121,8 +103,6 @@ def home():
                 message = "HEALTH WARNING of EMERGENCY CONDITIONS: everyone is more likely to be affected."
                 sendText(phone, message)
         return render_template("index.html", temp=temp, humid=humid, pm_2_5 = pm_2_5, pm_10= pm_10,aqi_2_5 = aqi_2_5, aqi_10 = aqi_10, points=json.dumps(list) )
-
-
 
     return render_template("index.html", temp=temp, humid=humid, pm_2_5 = pm_2_5, pm_10= pm_10,aqi_2_5 = aqi_2_5, aqi_10 = aqi_10, points=json.dumps(list) )
 
