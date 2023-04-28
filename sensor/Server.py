@@ -7,6 +7,7 @@ import urllib
 import random
 import string
 import dweepy
+import requests
 
 
 #Setup sensehat and SDS011
@@ -35,6 +36,15 @@ def main():
         msg = "pm2.5 = %s pm10 =%s" % (aqi_2_5, aqi_10)
         sense.show_message(msg, scroll_speed=0.05)
         
+        url = 'http://161.253.92.155:5000/'
+        myobj = {"temperature": str(t),
+                                         "pressure": str(p),
+                                         "humidity": str(h),
+                                         "pm_2_5": str(pmt_2_5),
+                                         "aqi_2_5": str(aqi_2_5),
+                                         "pm_10": str(pmt_10),
+                                         "aqi_10": str(aqi_10)}
+        x = requests.post(url, json = myobj)
         
         dweepy.dweet_for('AQVS_Sensor', {"temperature": str(t),
                                          "pressure": str(p),
@@ -129,5 +139,4 @@ def getSDS011():
     return pmt_2_5, aqi_2_5, pmt_10, aqi_10
 
 if __name__ == "__main__":
-    main()
-   
+    main()  
