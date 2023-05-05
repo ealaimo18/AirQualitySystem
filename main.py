@@ -20,6 +20,7 @@ aqi_10 = 0
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    
     global temp
     global humid
     global pm_2_5
@@ -80,8 +81,9 @@ def home():
         connection.commit()
         connection.close()
 
-
+        aqi_10 = 72
         #send texts with thresholds
+        print(phone)
         if phone != 0:
             if  aqi_10 > 51 and aqi_10 < 100:
                 message = "Air quality is acceptable. However, there may be a risk for some people, particularly those who are unusually sensitive to air pollution."
@@ -146,6 +148,7 @@ def registerDevice():
 def textSignUp():
     # Set environment variables for your credentials
     # Read more at http://twil.io/secure
+    global phone
     if request.method == 'POST':
         phone = request.form['phone']
     account_sid = "AC14a3f3132166d5d7afeb46621518c849"
@@ -191,4 +194,5 @@ def map():
 
 
 
-app.run(host='0.0.0.0', port=8080, debug=True)
+app.run(host='0.0.0.0', port=5000, debug=True)
+
